@@ -15,10 +15,10 @@ namespace Manhwa.WebAPI.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost]
+        [HttpPost("{storyId}")]
         [Authorize(Roles = "Admin")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Create(int storyId, [FromForm] CreateChapterRequest request)
+        public async Task<IActionResult> Create([FromRoute] int storyId, [FromForm] CreateChapterRequest request)
         {
             if (request.Pages == null || request.Pages.Count == 0)
                 return BadRequest("At least one page is required");

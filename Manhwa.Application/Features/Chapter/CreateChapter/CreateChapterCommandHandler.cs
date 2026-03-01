@@ -3,11 +3,6 @@ using Manhwa.Application.Common.Storage;
 using Manhwa.Domain.Entities;
 using Manhwa.Domain.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Manhwa.Application.Features.Chapter.CreateChapter
 {
@@ -56,7 +51,10 @@ namespace Manhwa.Application.Features.Chapter.CreateChapter
                 throw new Exception("At least one page is required");
 
             var exists = await _chapterRepo.ExistsAsync(
-                cmd.StoryId, req.LanguageId, req.ChapterNumber, ct);
+                cmd.StoryId,
+                req.LanguageId,
+                req.ChapterNumber,
+                ct);
 
             if (exists)
                 throw new Exception("Chapter already exists for this language");
@@ -71,20 +69,33 @@ namespace Manhwa.Application.Features.Chapter.CreateChapter
             };
 
             await _chapterRepo.AddAsync(chapter, ct);
-            await _uow.SaveChangesAsync(ct); 
+            await _uow.SaveChangesAsync(ct);
+
+            var sortedPages = req.Pages
+                .Where(x => x != null && x.Length > 0)
+                .OrderBy(x =>
+                {
+                    var name = Path.GetFileNameWithoutExtension(x.FileName);
+                    return int.TryParse(name, out var n) ? n : int.MaxValue;
+                })
+                .ToList();
 
             var images = new List<ChapterImage>();
 
-            for (int i = 0; i < req.Pages.Count; i++)
+            for (int i = 0; i < sortedPages.Count; i++)
             {
-                var file = req.Pages[i];
-                if (file == null || file.Length == 0) continue;
-
+                var file = sortedPages[i];
                 var order = i + 1;
+
                 var ext = Path.GetExtension(file.FileName);
-                var path = StoragePath.ChapterPage(cmd.StoryId, chapter.ChapterId, order, ext);
+                var path = StoragePath.ChapterPage(
+                    cmd.StoryId,
+                    chapter.ChapterId,
+                    order,
+                    ext);
 
                 using var stream = file.OpenReadStream();
+
                 var relativePath = await _storage.UploadAsync(
                     stream,
                     path,
@@ -101,7 +112,6 @@ namespace Manhwa.Application.Features.Chapter.CreateChapter
             }
 
             await _imageRepo.AddRangeAsync(images, ct);
-
             await _uow.SaveChangesAsync(ct);
 
             return new CreateChapterResponse

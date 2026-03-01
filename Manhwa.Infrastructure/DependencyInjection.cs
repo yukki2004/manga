@@ -76,6 +76,8 @@ namespace Manhwa.Infrastructure
             services.AddScoped<IChapterRepository, ChapterRepository>();
             services.AddScoped<IChapterImageRepository, ChapterImageRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
+            services.AddScoped<IVolumeImageRepository, VolumeImageRepository>();
+            services.AddScoped<IVolumeRepository, VolumeRepository>();
             return services;
         }
     }

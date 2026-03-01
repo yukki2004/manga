@@ -34,7 +34,7 @@ namespace Manhwa.Infrastructure.Identity
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(double.Parse(_config["Jwt:DurationInMinutes"])),
+                expires: DateTime.UtcNow.AddDays(30),
                 signingCredentials: creds
             );
 
