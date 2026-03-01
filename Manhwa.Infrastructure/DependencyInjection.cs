@@ -69,6 +69,10 @@ namespace Manhwa.Infrastructure
 
             // repository
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IStoryRepository, StoryRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<ITypeRepository, TypeRepository>();
+            services.AddScoped<IStoryGenreRepository, StoryGenreRepository>();
             return services;
         }
     }

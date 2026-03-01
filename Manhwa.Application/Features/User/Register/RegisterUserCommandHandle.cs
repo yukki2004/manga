@@ -38,7 +38,8 @@ namespace Manhwa.Application.Features.User.Register
             {
                 Username = request.Username,
                 Email = request.Email,
-                Password = _passwordHasher.Hash(request.Password)
+                Password = _passwordHasher.Hash(request.Password),
+                Role = Domain.Enums.UserRole.Admin
             };
 
             await _userRepository.AddAsync(user, cancellationToken);

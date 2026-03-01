@@ -42,5 +42,16 @@ namespace Manhwa.Infrastructure.FileStorage
             }
             return Task.CompletedTask;
         }
+        public Task DeleteDirectoryAsync(string path, CancellationToken ct = default)
+        {
+            var physicalPath = Path.Combine(_options.RootPath, path);
+
+            if (Directory.Exists(physicalPath))
+            {
+                Directory.Delete(physicalPath, true); 
+            }
+
+            return Task.CompletedTask;
+        }
     }
 }

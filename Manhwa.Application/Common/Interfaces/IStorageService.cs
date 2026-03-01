@@ -10,5 +10,7 @@ namespace Manhwa.Application.Common.Interfaces
     {
         Task<string> UploadAsync(Stream fileStream, string path, string contentType, bool isImmutable = false, CancellationToken ct = default);
         Task DeleteAsync(string key, CancellationToken ct = default);
+        Task DeleteDirectoryAsync(string path, CancellationToken ct = default); // ⭐ thêm
+
     }
 }
