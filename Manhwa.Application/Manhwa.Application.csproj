@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
     <PackageReference Include="MassTransit" Version="8.2.5" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.5" />
     <PackageReference Include="MediatR" Version="12.1.1" />
@@ -18,11 +20,13 @@
   <ItemGroup>
     <Folder Include="Common\Abstractions\" />
     <Folder Include="Common\Extensions\" />
-    <Folder Include="Common\Interfaces\" />
     <Folder Include="Common\Mappings\" />
     <Folder Include="Common\Messaging\" />
     <Folder Include="Common\Models\" />
-    <Folder Include="Features\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Manhwa.Domain\Manhwa.Domain.csproj" />
   </ItemGroup>
 
 </Project>

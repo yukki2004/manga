@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Manhwa.Application.Common.Interfaces
 {
-    class IPasswordHasher
+    public interface IPasswordHasher
     {
+        string Hash(string password);
+        bool Verify(string password, string hash);
     }
 }

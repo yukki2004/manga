@@ -33,9 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="Security\" />
     <Folder Include="Persistence\Queries\" />
-    <Folder Include="Persistence\Repositories\" />
     <Folder Include="Realtime\Hubs\" />
     <Folder Include="Realtime\Services\" />
   </ItemGroup>

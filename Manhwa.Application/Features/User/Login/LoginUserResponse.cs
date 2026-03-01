@@ -1,16 +1,16 @@
-﻿using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Manhwa.Application.Features.User.Register
+namespace Manhwa.Application.Features.User.Login
 {
-    public class RegisterUserCommand : IRequest<RegisterUserResponse>
+    public class LoginUserResponse
     {
+        public long Id { get; init; }
         public string Username { get; init; } = default!;
         public string Email { get; init; } = default!;
-        public string Password { get; init; } = default!;
+        public string AccessToken { get; init; } = default!;
     }
 }

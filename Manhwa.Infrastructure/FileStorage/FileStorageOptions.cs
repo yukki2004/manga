@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Manhwa.Infrastructure.FileStorage
 {
-    class FileStorageOptions
+    public class FileStorageOptions
     {
+        public string RootPath { get; set; } = null!;
+        public string BaseUrl { get; set; } = null!;
     }
 }

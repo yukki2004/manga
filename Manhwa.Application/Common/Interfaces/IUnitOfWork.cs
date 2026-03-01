@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Manhwa.Application.Common.Interfaces
 {
-    class IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
