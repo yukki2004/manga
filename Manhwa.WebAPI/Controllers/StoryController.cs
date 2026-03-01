@@ -1,5 +1,6 @@
 ﻿using Manhwa.Application.Features.Story.AddStory;
 using Manhwa.Application.Features.Story.DeleteStory;
+using Manhwa.Application.Features.Story.UpdateStory;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,16 @@ namespace Manhwa.WebAPI.Controllers
         {
             await _mediator.Send(new DeleteStoryCommand(id, true));
             return NoContent();
+        }
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Update(int id, [FromForm] UpdateStoryRequest request)
+        {
+            var result = await _mediator.Send(
+                new UpdateStoryCommand(id, request, true));
+
+            return Ok(result);
         }
     }
 }
